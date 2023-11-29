@@ -12,9 +12,6 @@ def signin(request):
             'result': '用户名密码不正确',
         })
     login(request, user)
-    appuser = AppUser.objects.all().get(user=user)
     return JsonResponse({
         'result': 'success',
-        'username': appuser.user.username,
-        'userimg': appuser.photo,
     })
