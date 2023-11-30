@@ -5,9 +5,7 @@
 ##### 前端页面
 
 <p align="center">
-  <img src="./imgs/p1.png" style="zoom:33%;" />
-  <img src="./imgs/p2.png" style="zoom:33%;" />
-  <img src="./imgs/p3.png" style="zoom:33%;" />
+  <img src="./imgs/pages.png" style="zoom:100%;" />
 </p>
 
 
