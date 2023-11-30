@@ -5,6 +5,8 @@ def getFoods(request):
     event = request.GET.get('event')
     if event == "getStarFoods":
         return getStarFoods()
+    elif event == "getOneFood":
+        return getOneFood(request.GET.get('id'))
 
     return JsonResponse({
         'result': "fail",
@@ -12,11 +14,23 @@ def getFoods(request):
 
 def foodData(food):
     return {
+        'id': food.food_id,
         'name': food.name,
         'position': food.position,
         'price': food.price,
         'imgUrl': food.imgUrl,
+        'class1': food.class1,
+        'class2': food.class2,
+        'likes': food.likes,
+        'collections': food.collections,
     }
+
+def getOneFood(id):
+    food = Food.objects.all().get(food_id=id)
+    return JsonResponse({
+        'result': "success",
+        'data': foodData(food),
+    })
 
 def getStarFoods():
     foods = []
