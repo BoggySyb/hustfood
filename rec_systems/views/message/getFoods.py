@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from rec_systems.models.food.food import Food
+from django.core.cache import cache
 
 def getFoods(request):
     event = request.GET.get('event')
@@ -33,9 +34,11 @@ def getOneFood(id):
     })
 
 def getStarFoods():
+    hot_food_list = cache.get('hot_food_list')
+
     foods = []
-    for i in range(1, 5):
-        food = Food.objects.all().get(food_id = str(i))
+    for food_id in hot_food_list[:5]:
+        food = Food.objects.all().get(food_id = food_id)
         foods.append(foodData(food))
 
     return JsonResponse({

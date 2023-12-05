@@ -34,6 +34,7 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'django_crontab',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -156,3 +157,19 @@ CORS_ALLOW_HEADERS = (
 CORS_ALLOW_CREDENTIALS = True
 #允许所有的主机执行跨站点请求
 CORS_ORIGIN_ALLOW_ALL = True
+
+CRONJOBS = [
+    ('0 1 1 * *', 'rec_systems.recommendation.task.get_hot_list'), # 每月第一天一点更新上一月热门商品
+    ('*/1 * * * *', 'rec_systems.recommendation.task.generate_recommendation')
+]
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        },
+    },
+}
+USER_AGENTS_CACHE = 'default'
